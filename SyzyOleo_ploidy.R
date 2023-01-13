@@ -1,5 +1,5 @@
 setwd("/Users/eilishmcmaster/Documents/SyzyOleo")
-load("dms.RDS")
+load("dms.RDS") # import the dms and m2 from the main rmd 
 
 devtools::source_url("https://github.com/eilishmcmaster/SoS_functions/blob/main/sos_functions.R?raw=TRUE")
 devtools::source_url("https://github.com/eilishmcmaster/SoS_functions/blob/ea46cc026bb56cafd339f5af383c94f46e0de2dd/read_dart_counts_csv_faster_new.r?raw=TRUE")
@@ -9,7 +9,8 @@ counts2 <- read_dart_counts_csv_faster('SyzyOleo/dart_raw/Report_DSyz22-7444_SNP
                                        minGenotypeCount=0)
 
 
-# plot a histogram for each sample in dms_zod
+# keep only the individuals in the dms that are assigned a species (sp)
+
 dms <- remove.by.list(dms2, m2[!is.na(m2$sp),] %>%.$sample)
 
 
@@ -61,9 +62,6 @@ a_function <- function(dms){
 
   }
 }
-
-
-dms <- remove.by.list(dms2, m2[m2$sp %in% "ng",] %>%.$sample)
 
 
 # plot histograms of the readcound data for all samples at the same time
